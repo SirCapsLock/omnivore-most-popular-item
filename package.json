@@ -1,0 +1,25 @@
+{
+  "name": "omnivore-most-popular-item",
+  "version": "1.0.0",
+  "description": "API to get the most popular item in the last 30 days for a given location",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.ts",
+    "build": "rm -rf dist/ && tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "date-fns": "^2.23.0",
+    "fastify": "^3.20.2",
+    "knex": "^0.95.10",
+    "pg": "^8.7.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.7.10",
+    "nodemon": "^2.0.12",
+    "ts-node": "^10.2.1",
+    "typescript": "^4.4.2"
+  }
+}
