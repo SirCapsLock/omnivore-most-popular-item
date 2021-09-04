@@ -1,4 +1,4 @@
-import { fastify, FastifyRequest } from "fastify";
+import { fastify } from "fastify";
 import Knex from "knex";
 import { LocationController } from "./controllers/location.controller";
 
