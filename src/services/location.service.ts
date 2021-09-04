@@ -6,6 +6,8 @@ export class LocationService {
   public constructor(private db: Knex) {}
 
   public async seed(locationId: string) {
+    await this.createTables();
+
     let omniResponse = await this.omniRequest(
       "GET",
       `locations/${locationId}/tickets`,
@@ -106,7 +108,7 @@ export class LocationService {
     where: string = "",
     limit: number = 50
   ) {
-    let url = `https://api.omnivore.io/1.0/${path}?`;
+    let url = `${process.env.OMNIVORE_API_URL}/${path}?`;
     url += `limit=${limit}`;
     url += `&fields=${fields.join(",")}`;
     url += `&where=${where}`;
@@ -121,5 +123,25 @@ export class LocationService {
     });
 
     return response.data;
+  }
+
+  private async createTables() {
+    await this.db.schema.createSchemaIfNotExists("omni");
+    const itemsSoldTableExists = await this.db.schema
+      .withSchema("omni")
+      .hasTable("item_sales");
+    if (!itemsSoldTableExists) {
+      await this.db.schema.createTable("omni.item_sales", function (table) {
+        table.increments();
+        table.date("date");
+        table.string("location_id");
+        table.string("item_id");
+        table.string("item_name");
+        table.integer("quantity_sold");
+
+        table.index("location_id");
+        table.index(["location_id", "date"]);
+      });
+    }
   }
 }

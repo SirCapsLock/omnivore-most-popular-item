@@ -1,6 +1,11 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import { fastify } from "fastify";
 import Knex from "knex";
 import { LocationController } from "./controllers/location.controller";
+
+console.log("OMNI:", process.env.OMNIVORE_API_URL);
 
 const PORT: number = parseInt(process.env.PORT as string) || 9000;
 const app = fastify({
