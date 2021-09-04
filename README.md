@@ -46,6 +46,7 @@ itemSales/
 This approach is nice because you could potentially show item quantities being sold in real time, but one must consider the amount of connections that might happen against the db as well as the cost of the bandwidth.
 
 ### Future Improvements
+- There's nothing right now that handles the case of a "tie" in most popular product. We would need to decide a tie-breaker if necessary.
 - Create a materialized view that holds the most popular item for a location on a particular date. This would be updated as new sales data is recorded.
 - Partition the `items_sold` table by date
 - Add a redis caching layer with entries keyed by location and date so that the calculation only needs to be performed once
